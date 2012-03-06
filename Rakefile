@@ -50,6 +50,7 @@ task :post do
     date = (Time.parse(ENV['date']) || Time.now).strftime('%Y-%m-%d')
   rescue Exception => e
     puts "Error - date format must be YYYY-MM-DD, please check you typed it correctly!"
+    puts "#{e.class}: #{e.message}" # This will tell us "TypeError: can't dup NilClass"
     exit -1
   end
   filename = File.join(CONFIG['posts'], "#{date}-#{slug}.#{CONFIG['post_ext']}")
