@@ -6,7 +6,7 @@ require 'date'
 
 SOURCE = "."
 CONFIG = {
-  'version' => "0.2.8",
+  'version' => "0.2.9",
   'themes' => File.join(SOURCE, "_includes", "themes"),
   'layouts' => File.join(SOURCE, "_layouts"),
   'posts' => File.join(SOURCE, "_posts"),
@@ -41,14 +41,14 @@ module JB
   end #Path
 end #JB
 
-# Usage: rake post title="A Title" [date="2012-03-06"]
+# Usage: rake post title="A Title" [date="2012-02-09"]
 desc "Begin a new post in #{CONFIG['posts']}"
 task :post do
   abort("rake aborted: '#{CONFIG['posts']}' directory not found.") unless FileTest.directory?(CONFIG['posts'])
   title = ENV["title"] || "new-post"
   slug = title.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
   begin
-    date = Time.parse(ENV['date']).strftime('%Y-%m-%d')
+    date = (ENV['date'] ? Time.parse(ENV['date']) : Time.now).strftime('%Y-%m-%d')
   rescue Exception => e
     date = Time.now.strftime('%Y-%m-%d')
   end
